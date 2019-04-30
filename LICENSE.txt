@@ -1,0 +1,2 @@
+This is licensed under https://creativecommons.org/licenses/by-nc-sa/3.0/ as changes have been made. 
+I have taken the functions and written them into a small command line program to execute the functions described at http://learnyouahaskell.com/
