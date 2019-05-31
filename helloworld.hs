@@ -1,161 +1,178 @@
--- doubleIt returns the input multiplied by itself
-doubleIt x = x + x
--- doubleThem returns two things multiplied by themselves and then added together.
-doubleThem x y = doubleIt x + doubleIt y
--- doubleUnder100 doubles a number if it's less than 100
-doubleUnder100 x = if x > 100 then x else doubleIt x
--- doubleUnder100 doubles a number if it's less than 100 and add 1
-doubleUnder100' x = (if x > 100 then x else x * 2) + 1
--- let'sFunction is a function with an apostrophe contains a string.
-let'sFunction = "Functions can have an apostrophe"
-yourName = "Github"
--- numberList is a list of numbers
-numberList = [1,2,3,4,5,6]
--- combineLists puts two lists together
-combineLists x y = x ++ y
--- prepending to the front with the cons operator is instananeous and combining has to traverse the left side list first
-prependIt x y = x:y
--- getByIndex gets an element from a list by index
-getByIndex x y = x !! y
-numberList' = [6,5,4,3,2,1]
--- nestList will combine two lists and nest then inside a list
-nestLists x y = x:[y]
--- isGreater returns True if the first element is greater
-isGreater x y = x > y
--- isEqual returns True if the two elements are the same
-isEqual x y = x == y
--- getHead returns the first element in a list
-getHead x = head x
--- getTail returns every element after the first in a list
-getTail x = tail x
--- getLast returns the last element in a list
-getLast x = last x
--- getInit returns every element before the last in a list
-getInit x = init x
--- getLength returns the length of a list
-getLength x = length x
--- isNull returns True if a list is null
-isNull x = null x
--- getReverse returns the reverse of a list
-getReverse x = reverse x
--- take' gets the given number of elements from a given list
-take' x y = take x y
--- drop' gets the list with the given number of elements removed from the list
-drop' x y = drop x y
--- maximum' returns the greatest element in a list
-maximum' x = maximum x
--- minimum' returns the greatest element in a list
-minimum' x = minimum x
--- sum' returns the sum of a list
-sum' x = sum x
--- product' returns the product of a list
-product' x = product x
--- exists given an element and a list returns True if an element exists in a list
-exists x y = x `elem` y
-boomBangGuard :: Int -> Int -> Int -> String
-boomBangGuard x y z 
-    | odd x = "Boom"
-    | x `mod` y == z = "Bang"
-    | otherwise = show x
--- removeLowerCase removes all the lower case letters from a list
-removeLowerCase x = [y | y <- x, y `elem` ['A'..'Z']]
--- removeEvenNumbers removes all of the even numbers in a nested list
-removeEvenNumbers x = [ [z | z <- y, odd z ]| y <- x ] 
+import Data.Typeable
+import Tutorial.Basics
+import Tutorial.Lists
+import Tutorial.Ranges
+import Tutorial.ListComprehensions
+import Utilities.InvestmentCalculator
+-- if in ghci in termal use :set prompt "ghci> " to change from Prelude to ghci
+
 -- initialize triangles between x and y
 triangles x y = [(a, b, c) | a <- [x..y], b <- [x..y], c <- [x..y]]
 -- initialize right triangles between x and y
 rightTriangles x y = [z | z <- triangles x y, let (a,b,c) = z in a^2 + b^2 == c^2 ] 
 -- initialize right triangles of a given perimeter z between x and y
 rightTrianglesOfPerimeter x y z = [result | result <- rightTriangles x y, let (a,b,c) = result in a^2 + b^2 == c^2,  let (a,b,c) = result in a+b+c == z ] 
+-- removeNonLowercase removes all characters from a string that are not lowercase
+removeNonLowercase :: String -> String
+removeNonLowercase st = [r | r <- st, r `elem` ['a'..'z']]
+-- addFour adds four integers together
+addFour :: Int -> Int -> Int -> Int -> Int 
+addFour w x y z = w + x + y + z
+-- factorial produces the product of a range
+factorial :: Integer -> Integer 
+factorial x = product [1..x]
+-- circumference calculates the circumference of a circle given a radius
+circumference :: Float -> Float
+circumference r = 2 * pi * r
+-- circumference' calculates the circumference of a circle given a radius
+circumference' :: Double -> Double
+circumference' r = 2 * pi * r
+-- lucky returns lucky if given the lucky number 777
+lucky :: (Integral a) => a -> String
+lucky 777 = "You're Lucky!"
+lucky x = "Nope." 
+sayInt :: (Integral a) => a -> String
+sayInt 1 = "One"
+sayInt 2 = "Two"
+sayInt 3 = "Three"
+sayInt 4 = "Four"
+sayInt 5 = "Five"
+sayInt 6 = "Six"
+sayInt 7 = "Seven"
+sayInt 8 = "Eight"
+sayInt x = "Too high or too low"
+-- factorial' 
+factorial' :: (Integral a) => a -> a  
+factorial' 0 = 1  
+factorial' n = n * factorial' (n - 1) 
+-- charName returns a name that begins with the uppercase of a lowercase char
+charName :: Char -> String  
+charName 'a' = "Albert"  
+charName 'b' = "Broseph"  
+charName 'c' = "Cecil"  
+-- addVectors adds two vectors together 
+addVectors :: (Num a) => (a, a) -> (a, a) -> (a, a)  
+addVectors (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)  
+-- firstTriple gets the first element of a triple
+firstTriple :: (a, b, c) -> a  
+firstTriple (x, _, _) = x  
+-- secondTriple gets the second element of a triple
+secondTriple :: (a, b, c) -> b  
+secondTriple (_, y, _) = y  
+-- thirdTriple gets the third element of a triple
+thirdTriple :: (a, b, c) -> c  
+thirdTriple (_, _, z) = z  
+-- tupleList
+tupleList = [(2,4), (1,6), (3,7), (5,9), (2,3), (1,1), (8,9), (9,10)]
+addTuples xs = [a+b | (a,b) <- xs ]
+-- head' returns the first element in a list
+head' :: [a] -> a  
+head' [] = error "head' requires at least one element in the list"  
+head' (x:_) = x 
+-- tell will display up to two elements of a list
+tell :: (Show a) => [a] -> String  
+tell [] = "The list is empty"  
+tell (x:[]) = "The list has one element: " ++ show x  
+tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y  
+tell (x:y:_) = "This list is long. The first two elements are: " ++ show x ++ " and " ++ show y  
 
+-- given a list of tuples add sum the first and last elements
+-- add all the partials, add all they purchases, divide the sum of purchases by the partials
 main = do
-    print 2
-    print $ doubleIt 2
-    print $ doubleThem 2 4
-    print $ doubleUnder100 13
-    print $ doubleUnder100 101
-    print $ doubleUnder100' 85
-    print $ doubleUnder100' 102
-    print $ let'sFunction
-    print $ yourName
-    -- just the lowercase letters
-    print $ [x | x <- yourName, x `elem` ['a'..'z']]
-    -- Lists
-    print $ numberList
-    -- combine two lists of numbers
-    print $ combineLists numberList (reverse numberList)
-    -- strings are lists of chars
-    print $ combineLists "hello" " haskell!"
-    -- equivalent
-    print $ combineLists (['h','e','l','l','o'] ++ [' ']) ['h','a','s','k','e','l','l','!']
-    print $ prependIt 'I' " don't eat clams"  
-    print $ prependIt 0 [1,2,3,4,5,6,7,8,9,10]
-    print $ getByIndex "Tree" 1
-    print $ nestLists numberList numberList'
-    print $ isGreater numberList numberList'
-    print $ isGreater numberList' [7]
-    print $ isEqual numberList [1,2,3,4,5,6]
-    print $ getHead numberList
-    print $ getTail numberList
-    print $ getLast numberList
-    print $ getInit numberList
-    print $ getLength numberList
-    print $ isNull numberList
-    print $ isNull []
-    print $ getReverse numberList
-    print $ take' 0 numberList
-    print $ take' 1 numberList
-    print $ take' 10 numberList
-    print $ drop' 0 numberList
-    print $ drop' 5 numberList
-    print $ drop' 10 numberList
-    print $ maximum'  numberList
-    print $ minimum'  numberList
-    print $ sum' numberList
-    print $ product' numberList
-    print $ exists 3 numberList
-    print $ exists 10 numberList
-    -- Ranges
-    print $ [1..100]
-    print $ ['a'..'z']
-    print $ ['A'..'Z']
-    print $ ['A'..'z']
-    print $ ['a'..'Z']
-    print $ [1, 3..100]
-    print $ [1000, 995..0]
-    print $ [(-0.1), (-0.05)..6]
-    print $ take 10 [(-1000), (-987)..]
-    print $ take 15 (cycle [1,4,8])
-    print $ take 15 (repeat 8)
-    print $ replicate 10 3
-    -- List Comprehensions
-    -- S = {2 * x | x union N, x<= 10} 
-    -- where x is "2 * x" is the output function, N is the input set, and x <= 10 is the predicate
-    -- for every element in the list multiply by two
-    print $ [doubleIt x | x <- numberList] 
-    -- return x from numberList where doubling x is more than 12
-    print $ [x | x <- numberList, doubleIt x > 12]
-    -- return x from a given range where dividing it by y equals 4
-    print $ [x | x <- [25..150], y <- [1..25], x `mod` y == 4]
-    -- return Boom for odd and Bang for even
-    print $ [if odd x then "Boom" else "Bang" | x <- [1..100]]
-    -- return Boom for odd and Bang for when the remainder of x/5 is 1 otherwise show the number
-    print $ [ boomBangGuard x 5 1 | x <- [1..100]]
-    -- use multiple predicates
-    print $ [ x | x <- [1,4..100], x `mod` 4 == 2, x `mod` 10 /= 0]
-    -- use multiple lists
-    print $ [ x * y | x <- numberList, y <- numberList']
-    -- multiple lists with predicate
-    print $ [ x * y | x <- numberList, y <- numberList', odd (x * y) ]
-    -- _ is used for throwaway values
-    print $ ["a" | _ <- numberList]
-    print $ removeLowerCase "PolitEly replACe thE filter"
-    print $ removeEvenNumbers [numberList, numberList', numberList, numberList']
-    -- Tuples
-    print $ fst (1, "True")
-    print $ snd (1, "True")
-    print $ zip numberList numberList'
-    print $ zip numberList ['a'..'z']
-    print $ triangles 1 20
-    print $ rightTriangles 1 20
-    print $ rightTrianglesOfPerimeter 1 20 24
+    --Utilities.InvestmentCalculator.execute
+    -- Tutorial.Basics.execute
+    -- Tutorial.Lists.execute
+    -- Tutorial.Ranges.execute
+    Tutorial.ListComprehensions.execute
+    -- -- Tuples
+    -- print $ fst (1, "True")
+    -- print $ snd (1, "True")
+    -- print $ zip numberList numberList'
+    -- print $ zip numberList ['a'..'z']
+    -- print $ triangles 1 20
+    -- print $ rightTriangles 1 20
+    -- print $ rightTrianglesOfPerimeter 1 20 24
+    -- -- Types and Typeclasses
+    -- -- print typeOf triangles doesn't give the same output as :t in ghci because of the static this 
+    -- print $ removeNonLowercase "FleaBrInGingsomeTHINGThaTIsOkSWell"
+    -- print $ addFour 1 2 3 4
+    -- print $ factorial 10
+    -- print $ circumference 10
+    -- print $ circumference' 10
+    -- print ":t head is head :: [a] -> a"
+    -- print ":t fst is fst :: (a, b) -> a "
+    -- print ":t (==) is (==) :: (Eq a) => a -> a -> Bool"
+    -- print "To call an infix function as a prefix call it surrounded with ()"
+    -- print "Everything before => is a class constraint so for == a needs to belong to Eq"
+    -- print ":t elem is elem :: (Eq a) => a -> [a] -> Bool"
+    -- -- typeclasses
+    -- print "Eq is used for types that support equality testing"
+    -- print "Ord is used for types that have an ordering"
+    -- print ":t (>) is (>) :: (Ord a) => a -> a -> Bool"
+    -- print "t compare is compare :: Ord a => a -> a -> Ordering"
+    -- print $ "1 `compare` 2 is " ++ show (1 `compare` 2)
+    -- print $ "2 `compare` 1 is " ++ show (2 `compare` 1)
+    -- print $ "2 `compare` 2 is " ++ show (2 `compare` 2)
+    -- print ":t show is show :: Show a => a -> String"
+    -- print $ "show 'a' is " ++ show 'a'
+    -- print $ "show ['a'] is " ++ show ['a']
+    -- print $ "show \"a\" is " ++ show "a"
+    -- print $ "show \"ab\" is " ++ show "ab"
+    -- print $ "show 1 is " ++ show 1
+    -- print $ "show True is " ++ show True
+    -- -- TODO: How else to print a string and another type on the same line?
+    -- print $ (":t read is read :: (Read a) => String -> a  " )
+    -- print $ ("read \"True\" is ", read "True" || False)
+    -- print $ ("read \"True\" is ", read "True" :: Bool)
+    -- print $ ("read \"8.2\" + 3.8 is ", read "8.2" + 3.8)
+    -- print $ ("read \"5\" - 2  is ", read "5" - 2)
+    -- print $ ("read \"[1,2,3,4]\" ++ [3]  is ", read "[1,2,3,4]" ++ [3])
+    -- print $ ("read \"[1,2,3,4]\" ++ [3]  is ", read "[1,2,3,4]" ++ [3])
+    -- print $ ("read \"4\" is ", read "4" :: Int)
+    -- print $ ("read \"4\" is ", read "4" :: Float)
+    -- print $ ("read \"4\" is ", read "4" :: Double)
+    -- print "Enum members are sequentially ordered types including: (),Bool, Char, Ordering, Int, Integer, Float and Double."
+    -- print $ ("You can call succ and pred on Enum members", "succ 'a'", succ 'a')
+    -- print $ ("You can call succ and pred on Enum members", "succ EQ", succ EQ)
+    -- print "Bounded members have an upper and a lower bound."
+    -- print $ ("minBound :: Int", minBound :: Int, "maxBound :: Int", maxBound :: Int)
+    -- print $ ("minBound :: Char", minBound :: Char, "maxBound :: Char", maxBound :: Char)
+    -- print $ ("minBound :: Bool", minBound :: Bool, "maxBound :: Bool", maxBound :: Bool)
+    -- print ":t minBound is minBound :: Bounded a => a"
+    -- print $ ("minBound :: (Bool, Int, Char)", minBound :: (Bool, Int, Char), "maxBound :: (Bool, Int, Char)", maxBound :: (Bool, Int, Char))
+    -- print $ ("20 :: Int is ", 20 :: Int)
+    -- print $ ("20 :: Integer is ", 20 :: Integer)
+    -- print $ ("20 :: Float is ", 20 :: Float)
+    -- print $ ("20 :: Double is ", 20 :: Double)
+    -- print ":t (*) is (*) :: (Num a) => a -> a -> a"
+    -- print "To join Num, a type must already be friends with Show and Eq."
+    -- print "Integral typelclass consists of Int and Integer"
+    -- print ":t of fromIntegral is fromIntegral :: (Num b, Integral a) => a -> b"
+    -- print $ fromIntegral (length [1,2,3,4]) + 3.2
+    -- -- Pattern matching
+    -- print $ lucky 777
+    -- print $ lucky 7
+    -- print $ sayInt 0
+    -- print $ sayInt 1
+    -- print $ sayInt 2
+    -- print $ sayInt 3
+    -- print $ sayInt 4
+    -- print $ sayInt 5
+    -- print $ sayInt 6
+    -- print $ sayInt 7
+    -- print $ sayInt 8
+    -- print $ sayInt 9
+    -- print $ factorial' 10
+    -- -- print $ charName 'd' -- produces exception : Non-exhaustive patterns in function charName
+    -- print $ charName 'a'
+    -- print $ addVectors (7,1) (3,9)
+    -- print $ firstTriple (4, 6, 1)
+    -- print $ secondTriple (4, 6, 1)
+    -- print $ thirdTriple (4, 6, 1)
+    -- print $ addTuples tupleList
+    -- print $ head' numberList
+    -- print $ head' tupleList
+    -- -- print $ head' "" -- produces exception : helloworld.hs: head' requires at least one element in the list
+    -- -- print $ head' [] :: Int -- produces exception : Couldn't match expected type ‘IO b’ with actual type ‘Int’
+    -- print $ tell [1,2,3]
+    -- print $ tell "AB"
