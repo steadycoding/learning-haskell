@@ -2,36 +2,38 @@ module Tutorial.PatternMatching(
     Tutorial.PatternMatching.execute,
 ) where
 
-import Tutorial.Lists as Lists
+import Tutorial.Lists as Lists hiding (sum')
 
 execute = do
-    print $ lucky 777
-    print $ lucky 7
-    print $ sayInt 0
-    print $ sayInt 1
-    print $ sayInt 2
-    print $ sayInt 3
-    print $ sayInt 4
-    print $ sayInt 5
-    print $ sayInt 6
-    print $ sayInt 7
-    print $ sayInt 8
-    print $ sayInt 9
-    print $ factorial' 10
+    print $ "lucky 777 is " ++ lucky 777
+    print $ "lucky 7 is " ++ lucky 7
+    print $ "sayInt 0 is " ++ sayInt 0
+    print $ "sayInt 1 is " ++ sayInt 1
+    print $ "sayInt 2 is " ++ sayInt 2
+    print $ "sayInt 3 is " ++ sayInt 3
+    print $ "sayInt 4 is " ++ sayInt 4
+    print $ "sayInt 5 is " ++ sayInt 5
+    print $ "sayInt 6 is " ++ sayInt 6
+    print $ "sayInt 7 is " ++ sayInt 7
+    print $ "sayInt 8 is " ++ sayInt 8
+    print $ "sayInt 9 is " ++ sayInt 9
+    print $ ("factorial' 10 is " ,read "0" + factorial' 10)
     -- print $ charName 'd' -- produces exception : Non-exhaustive patterns in function charName
-    print $ charName 'a'
-    print $ addVectors (7,1) (3,9)
-    print $ firstTriple (4, 6, 1)
-    print $ secondTriple (4, 6, 1)
-    print $ thirdTriple (4, 6, 1)
-    print $ addTuples tupleList
-    print $ head' Lists.numberList
-    print $ head' tupleList
+    print $ "charName 'a' is " ++ charName 'a'
+    print $ ("addVectors (7,1) (3,9) is ", addVectors (7,1) (3,9))
+    print $ ("firstTriple (4, 6, 1) is ", firstTriple (4, 6, 1))
+    print $ ("secondTriple (4, 6, 1) is ", secondTriple (4, 6, 1))
+    print $ ("thirdTriple (4, 6, 1) is ", thirdTriple (4, 6, 1))
+    print $ ("addTuples tupleList is ", addTuples tupleList)
+    print $ ("head' Lists.numberList is ", head' Lists.numberList)
+    print $ ("head' tupleList is ", head' tupleList)
     -- print $ head' "" -- produces exception : helloworld.hs: head' requires at least one element in the list
     -- print $ head' [] :: Int -- produces exception : Couldn't match expected type ‘IO b’ with actual type ‘Int’
-    print $ tell [1,2,3]
-    print $ tell "AB"
-
+    print $ "tell [1,2,3] is " ++ tell [1,2,3]
+    print $ "tell \"AB\" is " ++ tell "AB"
+    print $ ("length' \"ham\" is ", length' "ham")
+    print $ ("sum' [1,2,3,4,5,6,7,8,9] is ", sum' [1,2,3,4,5,6,7,8,9])
+    print $ "tellFirstLetter \"Dracula\" is " ++ tellFirstLetter "Dracula"
 -- lucky returns lucky if given the lucky number 777
 lucky :: (Integral a) => a -> String
 lucky 777 = "You're Lucky!"
@@ -80,4 +82,15 @@ tell [] = "The list is empty"
 tell (x:[]) = "The list has one element: " ++ show x  
 tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y  
 tell (x:y:_) = "This list is long. The first two elements are: " ++ show x ++ " and " ++ show y  
-    
+-- length' gets the length of a list
+length' :: (Num b) => [a] -> b
+length' [] = 0
+length' (_:xs) = 1 + length' xs
+-- sum' gets the sum of a list of numbers
+sum' :: (Num a) => [a] -> a
+sum' [] = 0
+sum' (x:xs) = x + sum' xs 
+-- tellFirstLetter reports the first letter of a string and is an example of how to use all@ to reference the entire input
+tellFirstLetter :: String -> String
+tellFirstLetter "" = "Empty String!"
+tellFirstLetter all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
